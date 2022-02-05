@@ -56,3 +56,8 @@ class Environment:
                     #wird idx_contact krank?
                         #if idx_contact krank:set new status von idx_contact, wenn krank
             self._agents[idx_agent].add_sick_days()
+
+
+    def get_agents_status(self):
+        pass # Idee : return tupel with (S/N, I/N, R/N)
+
