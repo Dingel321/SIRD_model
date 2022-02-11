@@ -59,8 +59,9 @@ class Environment:
         for idx_agent, contacts in enumerate(self._network):
             for idx_contact, contact in enumerate(contacts):
                 if contact:
-                    if self._agents[idx_agent].get_status() == 'infected' and self._make_contact():
+                    if self._agents[idx_agent].get_status() == 'infected' and self._agents[idx_contact].get_status() == 'suseptible' and self._make_contact():
                         self._agents[idx_contact].set_status('infected')
+                        
 
         for agent in self._agents:
             if agent.get_status() == 'infected':
@@ -87,10 +88,10 @@ class Environment:
                 n_dead += 1
             
         stats =  (
-            n_suseptible,
-            n_infected,
-            n_recovered,
-            n_dead
+            n_suseptible / self._N,
+            n_infected / self._N,
+            n_recovered / self._N,
+            n_dead / self._N
         )
 
         return stats
