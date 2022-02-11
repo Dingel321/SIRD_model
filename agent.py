@@ -4,12 +4,10 @@
 class Agent():
     """Agent class for SIR model"""
 
-    def __init__(self, status, infected_days):
+    def __init__(self, status):
         self._status = status
-        self._days_of_sick = 0
-        self._infected_days = infected_days
 
-    def get_status(self) -> str:
+    def get_status(self):
         """Return current status of the agent"""
 
         return self._status
@@ -21,14 +19,4 @@ class Agent():
             raise Exception('Wrong agent status!')
         self._status = new_status
 
-    def add_sick_day(self):
-        """Increment days of sickness"""
-
-        if self._status == 'infected':
-            self._days_of_sick += 1
-        if self._days_of_sick > self._infected_days:
-            self._reset_sick_days()
-
-    def _reset_sick_days(self):
-        self._days_of_sick = 0
 
