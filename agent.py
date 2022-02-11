@@ -32,4 +32,3 @@ class Agent():
     def _reset_sick_days(self):
         self._days_of_sick = 0
 
-

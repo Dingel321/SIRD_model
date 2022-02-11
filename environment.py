@@ -1,7 +1,6 @@
-from agent import Agent
 import networkx as nx
 import numpy as np
-
+from agent import Agent
 
 class Environment:
     """Enviroment class representing a single simulation setting."""
