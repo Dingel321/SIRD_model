@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from environment import Environment
 
+
 def main():
     suseptible = []
     infected = []
@@ -17,11 +18,11 @@ def main():
         dead.append(n_dead)
 
         environment.step()
-        
-    plt.plot(n_sus)
-    plt.plot(n_inf)
-    plt.plot(n_reco)
-    plt.plot(n_dead)
+
+    plt.plot(suseptible)
+    plt.plot(infected)
+    plt.plot(recovered)
+    plt.plot(dead)
 
 if __name__ == '__main__':
     main()
