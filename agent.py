@@ -1,4 +1,4 @@
-"""Modul contains Agent class"""
+"""Modul containing the agent class"""
 
 
 class Agent():

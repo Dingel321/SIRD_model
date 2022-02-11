@@ -1,3 +1,5 @@
+"""Module containing the enviroment class"""
+
 import networkx as nx
 import numpy as np
 import random
@@ -55,6 +57,7 @@ class Environment:
 
     def step(self):
         """Calculate on iteration in simulation."""
+
         for idx_agent, contacts in enumerate(self._network):
             for idx_contact, contact in enumerate(contacts):
                 if contact:
@@ -69,6 +72,8 @@ class Environment:
                 agent.set_status(new_status)
 
     def get_agents_status(self):
+        """Returns tuple with population of all states"""
+
         n_susceptible = 0
         n_infected = 0
         n_recovered = 0
