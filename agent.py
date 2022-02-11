@@ -19,4 +19,3 @@ class Agent():
             raise Exception('Wrong agent status!')
         self._status = new_status
 
-
