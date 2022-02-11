@@ -7,29 +7,29 @@ from agent import Agent
 class Environment:
     """Environment class representing a single simulation setting."""
 
-    def __init__(self, beta, mu, mu_d, N):
+    def __init__(self, beta, mu, mu_d, n_agents, n_init_infected=1):
         self._beta = beta
         self._mu = mu
         self._mu_d = mu_d
-        self._N = N
+        self._n_agents = n_agents
         self._network = self._generate_network()
-        self._agents = self._generate_agents()
+        self._agents = self._generate_agents(n_init_infected)
 
     def _generate_network(self):
         """Returns adjacency matrix of network."""
 
         network_dic = nx.grid_2d_graph(
-            int(np.sqrt(self._N)),
-            int(np.sqrt(self._N)),
+            int(np.sqrt(self._n_agents)),
+            int(np.sqrt(self._n_agents)),
             False
-        )  # TODO ungerades N
+        )  # TODO ungerades n_agents
         return nx.convert_matrix.to_numpy_array(network_dic, dtype=int)
 
-    def _generate_agents(self, init_infected=1):
+    def _generate_agents(self, init_infected):
         """Returns list of agents."""
 
         agents = []
-        for i in range(self._N):
+        for i in range(self._n_agents):
             if i < init_infected:
                 agents.append(Agent('infected'))
             else:
@@ -87,10 +87,10 @@ class Environment:
                 n_dead += 1
             
         stats =  (
-            n_susceptible / self._N,
-            n_infected / self._N,
-            n_recovered / self._N,
-            n_dead / self._N
+            n_susceptible / self._n_agents,
+            n_infected / self._n_agents,
+            n_recovered / self._n_agents,
+            n_dead / self._n_agents
         )
 
         return stats

@@ -3,14 +3,17 @@ from environment import Environment
 
 
 def main():
+    n_agents = 144
+    n_init_infected = 3
+    n_steps = 100
     susceptible = []
     infected = []
     recovered = []
     dead = []
 
-    environment = Environment(0.2, 0.1, 0.3, 11)
+    environment = Environment(0.2, 0.1, 0.3, n_agents, n_init_infected)
     
-    for i in range(100):
+    for i in range(n_steps):
         n_sus, n_inf, n_reco, n_dead = environment.get_agents_status()
         susceptible.append(n_sus)
         infected.append(n_inf)
@@ -19,11 +22,17 @@ def main():
 
         environment.step()
 
-    print(susceptible)
-    plt.plot(susceptible)
-    plt.plot(infected)
-    plt.plot(recovered)
-    plt.plot(dead)
+    plt.plot(susceptible, label='susceptible')
+    plt.plot(infected, label='infected')
+    plt.plot(recovered, label='recovered')
+    plt.plot(dead, label='dead')
+    plt.legend()
+    plt.xlabel('days')
+    plt.ylabel('percentage')
+    plt.title(f'agents = {n_agents}')
+    plt.ylim((0, 1))
+    plt.xlim((0, n_steps))
+    plt.show()
 
 
 if __name__ == '__main__':
