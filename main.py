@@ -6,12 +6,16 @@ def main():
     n_agents = 144
     n_init_infected = 3
     n_steps = 100
+    beta = 0.2
+    mu = 0.1
+    mu_d = 0.3
+
     susceptible = []
     infected = []
     recovered = []
     dead = []
 
-    environment = Environment(0.2, 0.1, 0.3, n_agents, n_init_infected)
+    environment = Environment(beta, mu, mu_d, n_agents, n_init_infected)
     
     for i in range(n_steps):
         n_sus, n_inf, n_reco, n_dead = environment.get_agents_status()
