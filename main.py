@@ -8,7 +8,7 @@ def main():
     n_steps = 100
     beta = 0.2
     mu = 0.1
-    mu_d = 0.3
+    mu_d = 0.01
 
     susceptible = []
     infected = []
@@ -31,7 +31,7 @@ def main():
     plt.plot(recovered, label='recovered')
     plt.plot(dead, label='dead')
     plt.legend()
-    plt.xlabel('days')
+    plt.xlabel('steps')
     plt.ylabel('percentage')
     plt.title(f'agents = {n_agents}')
     plt.ylim((0, 1))
@@ -41,4 +41,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    plt.plot([1, 2, 3])
