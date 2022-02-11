@@ -3,7 +3,7 @@ from environment import Environment
 
 
 def main():
-    suseptible = []
+    susceptible = []
     infected = []
     recovered = []
     dead = []
@@ -12,17 +12,19 @@ def main():
     
     for i in range(100):
         n_sus, n_inf, n_reco, n_dead = environment.get_agents_status()
-        suseptible.append(n_sus)
+        susceptible.append(n_sus)
         infected.append(n_inf)
         recovered.append(n_reco)
         dead.append(n_dead)
 
         environment.step()
 
-    plt.plot(suseptible)
+    print(susceptible)
+    plt.plot(susceptible)
     plt.plot(infected)
     plt.plot(recovered)
     plt.plot(dead)
+
 
 if __name__ == '__main__':
     main()
