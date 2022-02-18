@@ -24,7 +24,7 @@ class Environment:
             int(np.sqrt(self._n_agents)),
             int(np.sqrt(self._n_agents)),
             False
-        )  # TODO ungerades n_agents
+        )
         return nx.convert_matrix.to_numpy_array(network_dic, dtype=int)
 
     def _generate_agents(self, init_infected):

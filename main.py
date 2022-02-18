@@ -3,10 +3,10 @@ from environment import Environment
 
 
 def main():
-    n_agents = 144
+    n_agents = 288
     n_init_infected = 3
     n_steps = 100
-    beta = 0.2
+    beta = 0.25
     mu = 0.1
     mu_d = 0.01
 
