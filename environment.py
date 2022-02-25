@@ -4,6 +4,7 @@ import networkx as nx
 import numpy as np
 import random
 from agent import Agent
+from status import Status
 
 
 class Environment:
@@ -17,7 +18,7 @@ class Environment:
         self._network = self._generate_network()
         self._agents = self._generate_agents(n_init_infected)
 
-    def _generate_network(self):
+    def _generate_network(self, contact_network='grid'):
         """Returns adjacency matrix of network."""
 
         network_dic = nx.grid_2d_graph(
@@ -33,9 +34,9 @@ class Environment:
         agents = []
         for i in range(self._n_agents):
             if i < init_infected:
-                agents.append(Agent('infected'))
+                agents.append(Agent(Status.INFECTED))
             else:
-                agents.append(Agent('susceptible'))
+                agents.append(Agent(Status.SUSCEPTIBLE))
         return agents
 
     def _make_contact(self):
@@ -48,11 +49,11 @@ class Environment:
     def _gendead(self):
         """Calculates probability of recovering or dying."""
 
-        status = 'infected'
+        status = Status.INFECTED
         if random.randint(0, 100000) <= 100000 * self._mu:
-            status = 'recovered'
+            status = Status.RECOVERED
             if random.randint(0, 100000) <= 100000 * self._mu_d:
-                status = 'dead'
+                status = Status.DEAD
         return status
 
     def step(self):
@@ -61,13 +62,13 @@ class Environment:
         for idx_agent, contacts in enumerate(self._network):
             for idx_contact, contact in enumerate(contacts):
                 if contact:
-                    if self._agents[idx_agent].get_status() == 'infected' \
-                            and self._agents[idx_contact].get_status() == 'susceptible' \
+                    if self._agents[idx_agent].get_status() == Status.INFECTED \
+                            and self._agents[idx_contact].get_status() == Status.SUSCEPTIBLE \
                             and self._make_contact():
-                        self._agents[idx_contact].set_status('infected')
+                        self._agents[idx_contact].set_status(Status.INFECTED)
 
         for agent in self._agents:
-            if agent.get_status() == 'infected':
+            if agent.get_status() == Status.INFECTED:
                 new_status = self._gendead()
                 agent.set_status(new_status)
 
@@ -82,13 +83,13 @@ class Environment:
         for agent in self._agents:
             status = agent.get_status()
 
-            if status == 'susceptible':
+            if status == Status.SUSCEPTIBLE:
                 n_susceptible += 1
-            elif status == 'infected':
+            elif status == Status.INFECTED:
                 n_infected += 1
-            elif status == 'recovered':
+            elif status == Status.RECOVERED:
                 n_recovered += 1
-            elif status == 'dead':
+            elif status == Status.DEAD:
                 n_dead += 1
             
         stats =  (

@@ -1,4 +1,6 @@
-"""Modul containing the agent class"""
+"""Module containing the agent class"""
+
+from status import Status
 
 
 class Agent():
@@ -15,7 +17,7 @@ class Agent():
     def set_status(self, new_status):
         """Set The new current state of the agent"""
 
-        if self._status == 'susceptible' and new_status == 'recovered':
+        if self._status == Status.SUSCEPTIBLE and new_status == Status.RECOVERED:
             raise Exception('Wrong agent status!')
         self._status = new_status
 
