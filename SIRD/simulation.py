@@ -42,8 +42,8 @@ class Simulation:
         ax.plot(self._results[Status.INFECTED], label='I')
         ax.plot(self._results[Status.RECOVERED], label='R')
         ax.plot(self._results[Status.DEAD], label='D')
-        ax.xlabel('Iterations')
-        ax.ylabel('Percentage')
+        ax.set_xlabel('Iterations')
+        ax.set_ylabel('Percentage')
         ax.legend()
         if show:
             plt.show()
@@ -69,7 +69,7 @@ class Simulation:
         def animate(frame):
             ax.cla()
             node_color = [translate_color(agent_status) for agent_status in agents_status[frame]]
-            nx.draw(network, node_color=node_color, pos=pos)
+            nx.draw(network, node_color=node_color, pos=pos, node_size=15)
             return fig
 
         network = self._network

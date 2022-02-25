@@ -11,7 +11,7 @@ def main():
     mu = 0.1
     mu_d = 0.01
 
-    contact_network = nx.watts_strogatz_graph(n_agents, k=4, p=0.1)
+    contact_network = nx.watts_strogatz_graph(n_agents, k=4, p=0.03)
 
     sim = Simulation(
         n_steps, 
