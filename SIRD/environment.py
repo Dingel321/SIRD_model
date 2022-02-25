@@ -3,30 +3,37 @@
 import networkx as nx
 import numpy as np
 import random
-from agent import Agent
-from status import Status
+
+from SIRD.agent import Agent
+from SIRD.status import Status
 
 
 class Environment:
     """Environment class representing a single simulation setting."""
 
-    def __init__(self, beta, mu, mu_d, n_agents, n_init_infected=1):
+    def __init__(self, beta, mu, mu_d, n_agents, n_init_infected, contact_network):
         self._beta = beta
         self._mu = mu
         self._mu_d = mu_d
         self._n_agents = n_agents
-        self._network = self._generate_network()
+        self._network = self._generate_network(contact_network)
         self._agents = self._generate_agents(n_init_infected)
 
-    def _generate_network(self, contact_network='grid'):
+    def _generate_network(self, contact_network, **kwargs):
         """Returns adjacency matrix of network."""
-
-        network_dic = nx.grid_2d_graph(
-            int(np.sqrt(self._n_agents)),
-            int(np.sqrt(self._n_agents)),
-            False
-        )
-        return nx.convert_matrix.to_numpy_array(network_dic, dtype=int)
+        if contact_network == 'grid':
+            if int(np.sqrt(self._n_agents)) != self._n_agents ** 2:
+                raise Exception('Only cubic numbers can be accepted! 2**2 = 4 usw.')
+            network_dic = nx.grid_2d_graph(
+                int(np.sqrt(self._n_agents)),
+                int(np.sqrt(self._n_agents)),
+                False
+            )
+            return nx.convert_matrix.to_numpy_array(network_dic, dtype=int)
+        elif isinstance(contact_network, nx.Graph):
+            if len(contact_network.nodes) != self._n_agents:
+                raise Exception('Number of nodes and agents are different!')
+            return nx.convert_matrix.to_numpy_array(contact_network, dtype=int)
 
     def _generate_agents(self, init_infected):
         """Returns list of agents."""
@@ -72,7 +79,7 @@ class Environment:
                 new_status = self._gendead()
                 agent.set_status(new_status)
 
-    def get_agents_status(self):
+    def get_agents_stats(self):
         """Returns tuple with population of all states"""
 
         n_susceptible = 0
@@ -100,3 +107,12 @@ class Environment:
         )
 
         return stats
+
+    def get_agent_list(self):
+        """Returns a list of the agents status"""
+        status = [agent.get_status() for agent in self._agents]
+        return status
+
+    def get_adjacency_matrix(self):
+        """Returns the adjacency_matrix of the network"""
+        return self._network

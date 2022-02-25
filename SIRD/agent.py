@@ -1,10 +1,10 @@
 """Module containing the agent class"""
 
-from status import Status
+from SIRD.status import Status
 
 
 class Agent():
-    """Agent class for SIR model"""
+    """Agent class for SIRD model"""
 
     def __init__(self, status):
         self._status = status
