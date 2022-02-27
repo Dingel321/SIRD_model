@@ -12,6 +12,8 @@ def main():
     mu_d = 0.01
 
     contact_network = nx.watts_strogatz_graph(n_agents, k=4, p=0.03)
+    #contact_network = nx.erdos_renyi_graph(n_agents, p=0.002)
+    #contact_network = nx.barabasi_albert_graph(n_agents, m=1)
 
     sim = Simulation(
         n_steps, 
