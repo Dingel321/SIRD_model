@@ -22,7 +22,7 @@ class Environment:
     def _generate_network(self, contact_network, **kwargs):
         """Returns adjacency matrix of network."""
         if contact_network == 'grid':
-            if int(np.sqrt(self._n_agents)) != self._n_agents ** 2:
+            if int(np.sqrt(self._n_agents)) ** 2 != self._n_agents:
                 raise Exception('Only cubic numbers can be accepted! 2**2 = 4 usw.')
             network_dic = nx.grid_2d_graph(
                 int(np.sqrt(self._n_agents)),
