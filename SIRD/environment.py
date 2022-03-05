@@ -19,7 +19,7 @@ class Environment:
         self._network = self._generate_network(contact_network)
         self._agents = self._generate_agents(n_init_infected)
 
-    def _generate_network(self, contact_network, **kwargs):
+    def _generate_network(self, contact_network):
         """Returns adjacency matrix of network."""
         if contact_network == 'grid':
             if int(np.sqrt(self._n_agents)) ** 2 != self._n_agents:
